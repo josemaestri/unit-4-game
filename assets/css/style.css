@@ -1,0 +1,31 @@
+/* global */
+body{
+  background: url('https://images.alphacoders.com/707/707135.jpg') 0 0 no-repeat;
+  background-size: cover;
+  font-family: 'Ubunto Mono',monospace;
+}
+
+/* Utilities */
+.show, .hide{
+  transition: all 500ms ease-in-out;
+}
+.show{
+  opacity: 1;
+}
+.hide{
+  opacity: 0;
+}
+
+/* elements */
+h1,h2,h3,h4,h5,h6{
+  text-shadow: 0 0 25px teal;
+  font-variant: small-caps;
+}
+
+/* fighter cards */
+.fighter{
+  cursor: pointer;
+}
+.row-fighters .fighter{
+  
+}
