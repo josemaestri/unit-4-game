@@ -34,7 +34,7 @@ $(document).ready(function() {
   // print characters
   function printFighters(){
     for (var i = 0; i < fighters.length; i++) {
-      var el = $('<div class="col"><div class="card-deck"><div class="fighter card text-center bg-transparent p-2" data-fighter="'+fighters[i].id+'" data-fighter-pos="'+i+'"><img class="card-img-top img-responsive img-fluid rounded" src="'+fighters[i].img+'" alt="'+fighters[i].name+'"><div class="card-body"><h5 class="card-title">'+fighters[i].name+'</h5><p class="card-text">Health: '+fighters[i].health+'</p></div></div></div></div>');
+      var el = $('<div class="col-md-6 col-lg-3 mb-3"><div class="fighter card text-center bg-transparent p-2" data-fighter="'+fighters[i].id+'" data-fighter-pos="'+i+'"><img class="card-img-top img-responsive img-fluid rounded" src="'+fighters[i].img+'" alt="'+fighters[i].name+'"><div class="card-body"><h5 class="card-title">'+fighters[i].name+'</h5><p class="card-text">Health: '+fighters[i].health+'</p></div></div></div>');
       el.appendTo('.row-fighters');
     }
   }
