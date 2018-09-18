@@ -12,6 +12,7 @@ $(document).ready(function() {
   var defender;
   var enemies = [];
   var rounds;
+  var playAgain;
 
 
   // HTML VARIABLES
@@ -33,7 +34,7 @@ $(document).ready(function() {
   // print characters
   function printFighters(){
     for (var i = 0; i < fighters.length; i++) {
-      var el = $('<div class="col"><div class="fighter" data-fighter="'+fighters[i].id+'" data-fighter-pos="'+i+'">'+fighters[i].name+'</div></div>');
+      var el = $('<div class="col"><div class="card-deck"><div class="fighter card text-center bg-transparent p-2" data-fighter="'+fighters[i].id+'" data-fighter-pos="'+i+'"><img class="card-img-top img-responsive img-fluid rounded" src="'+fighters[i].img+'" alt="'+fighters[i].name+'"><div class="card-body"><h5 class="card-title">'+fighters[i].name+'</h5><p class="card-text">Health: '+fighters[i].health+'</p></div></div></div></div>');
       el.appendTo('.row-fighters');
     }
   }
@@ -47,14 +48,14 @@ $(document).ready(function() {
       }
     }
     rounds = enemies.length;
-    areaFighters.fadeOut(1000,printChampion);
+    areaFighters.fadeOut(500,printChampion);
   }
 
   // print champion onto HTML
   function printChampion(){
-    champEl.html(champion.name);
+    champEl.html('<div class="fighter enemy media p-2 m-2 rounded"><div class="media-body"><h5>'+champion.name+'</h5><p>Health: <span class="champion-health fighter-health">'+champion.health+'</span></p></div><img src="'+champion.img+'" alt="" width="45" class="img-responsive rounded" /></div>');
     colPlay.removeClass('hide').addClass('show');
-    areaPlay.fadeIn(1000, function(){
+    areaPlay.fadeIn(500, function(){
       printEnemies();  
     });
   }
@@ -62,7 +63,7 @@ $(document).ready(function() {
   // print enemies onto HTML
   function printEnemies(){
     for (var i = 0; i < enemies.length; i++) {
-      var en = $('<div class="fighter enemy" data-fighter-pos="'+fighters.indexOf(enemies[i])+'">'+enemies[i].name+'</div>');
+      var en = $('<div class="fighter enemy media p-2 m-2 rounded" data-fighter-pos="'+fighters.indexOf(enemies[i])+'"><div class="media-body"><h5>'+enemies[i].name+'</h5><p>Health: '+enemies[i].health+'</p></div><img src="'+enemies[i].img+'" alt="" width="45" class="img-responsive rounded" /></div>');
       en.appendTo(colEnemies);
       colEnemies.removeClass('hide').addClass('show');
     }
@@ -70,16 +71,30 @@ $(document).ready(function() {
 
   // select defender (user)
   function selectDef(enPos){
-    defender = fighters[enPos];
-    var defEl = $('.enemy[data-fighter-pos="'+enPos+'"');
-    defEl.hide();
-    printDef();
+    if(defEl.children().length < 1){
+      defender = fighters[enPos];
+      var enEl = $('.enemy[data-fighter-pos="'+enPos+'"');
+      enEl.hide();
+      printDef();
+    }
   }
 
   // print defender
   function printDef(){
-    defEl.html(defender.name);
+    champEl.find('.fighter').removeClass('bg-info');
+    defEl.html('<div class="fighter enemy media p-2 m-2 rounded"><div class="media-body"><h5>'+defender.name+'</h5><p>Health: <span class="defender-health fighter-health">'+defender.health+'</span></p></div><img src="'+defender.img+'" alt="" width="45" class="img-responsive rounded" /></div>');
     rowAttack.removeClass('hide').addClass('show');
+    // fighterHealth = $('.fighter-health');
+    // console.log(fighterHealth);
+  }
+
+  function printHealth(fighter){
+
+    if(fighter === champion){
+      $('.champion-health').text(fighter.health);
+    } else{
+      $('.defender-health').text(fighter.health);
+    }
   }
 
   // attack (user)
@@ -88,6 +103,7 @@ $(document).ready(function() {
     var damage = champ.xp * champ.attack;
 
     def.health = def.health - damage;
+    printHealth(def);
     champ.xp++;
     
     checkIfDead(def);
@@ -97,7 +113,10 @@ $(document).ready(function() {
     } else{
       rounds--;
       if(rounds > 0){
-        alert('Select New Defender');
+        champEl.find('.fighter').addClass('bg-info');
+        setTimeout(function(){alert('Select New Defender')},250);
+        defEl.empty();
+        rowAttack.removeClass('show').addClass('hide');
       } else{
         handleWin();
       }
@@ -117,6 +136,7 @@ $(document).ready(function() {
   function defend(def, champ) {
     var damage = def.xp * def.attack;
     champ.health = champ.health - damage;
+    printHealth(champ);
   }
 
   // check if fighter has died
@@ -130,25 +150,44 @@ $(document).ready(function() {
 
   // handle win
   function handleWin(){
-    var playAgain = confirm('Woo! You Win! Play Again?');
+    
 
-    if(playAgain){
-      reset();
-    }
+    colEnemies.find('.fighter').addClass('disabled');
+    defEl.find('.fighter').addClass('disabled');
+    champEl.find('.fighter').addClass('bg-info');
+    rowAttack.removeClass('show').addClass('hide');
+
+    setTimeout(function(){
+      playAgain = confirm('Woo! You Win! Play Again?');
+      if(playAgain){
+        reset();
+      }
+    }, 500);
+
+
   }
 
   // handle loss
   function handleLoss(){
-    var playAgain = confirm('Womp. You Lose. Play Again?');
 
-    if(playAgain){
-      reset();
-    }
+    colEnemies.find('.fighter').addClass('disabled');
+    champEl.find('.fighter').addClass('disabled');
+    defEl.find('.fighter').addClass('bg-info');
+    rowAttack.removeClass('show').addClass('hide');
+
+    setTimeout(function(){
+     playAgain = confirm('Womp. You Lose. Play Again?'); 
+     if(playAgain){
+       reset();
+     } 
+    }, 500);
+
+    
   }
 
   // reset/init game
   function reset(){
-    areaPlay.fadeOut(1000,function(){
+    areaPlay.fadeOut(500,function(){
       colPlay.removeClass('show').addClass('hide');
       colEnemies.removeClass('show').addClass('hide');
       rowAttack.removeClass('show').addClass('hide');
@@ -164,12 +203,13 @@ $(document).ready(function() {
 
   function init(){
 
-    areaFighters.fadeIn(1000);
+    areaFighters.fadeIn(500);
 
     fighters = [
       {
         id: 'clu',
         name: 'Clu',
+        img: 'assets/img/clu.jpg',
         health: 125,
         attack: 5,
         xp: 1
@@ -177,6 +217,7 @@ $(document).ready(function() {
       {
         id: 'tron',
         name: 'Tron/Rinzler',
+        img: 'assets/img/tron.png',
         health: 150,
         attack: 10,
         xp: 1
@@ -184,6 +225,7 @@ $(document).ready(function() {
       {
         id: 'quorra',
         name: 'Quorra',
+        img: 'assets/img/quorra.png',
         health: 175,
         attack: 15,
         xp: 1
@@ -191,6 +233,7 @@ $(document).ready(function() {
       {
         id: 'zuse',
         name: 'Zuse/Castor',
+        img: 'assets/img/zuse.jpg',
         health: 200,
         attack: 20,
         xp: 1

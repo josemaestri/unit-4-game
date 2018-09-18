@@ -1,13 +1,15 @@
 /* global */
+/* ************************* */
 body{
-  background: url('https://images.alphacoders.com/707/707135.jpg') 0 0 no-repeat;
+  background: #222 url('https://images.alphacoders.com/707/707135.jpg') 0 0 no-repeat;
   background-size: cover;
   font-family: 'Ubunto Mono',monospace;
 }
 
 /* Utilities */
+/* ************************* */
 .show, .hide{
-  transition: all 500ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 .show{
   opacity: 1;
@@ -17,15 +19,28 @@ body{
 }
 
 /* elements */
+/* ************************* */
+
+/* headings */
 h1,h2,h3,h4,h5,h6{
   text-shadow: 0 0 25px teal;
   font-variant: small-caps;
 }
+.logo{
+  filter: drop-shadow(0 0 25px teal);
+}
+
 
 /* fighter cards */
 .fighter{
   cursor: pointer;
+  box-shadow: 0 0 50px teal inset;
+  border: none;
 }
-.row-fighters .fighter{
-  
+.champion .fighter, .defender .fighter{
+  cursor: default;
+}
+.fighter.disabled{
+  box-shadow: 0 0 50px #666 inset;
+  color: #999;
 }

@@ -10,11 +10,14 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="text-white">
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col-12">
         <header class="mt-4 mb-2 pb-2">
-          <h1 class="display-1">Tron RPG</h1>
+          <h1 class="display-1">
+            <object data="assets/img/logo.svg" type="image/svg+xml" class="logo">Tron RPG</object>
+            <!-- <img src="assets/img/logo.svg" alt=""> -->
+          </h1>
         </header>
       </div>
     </div>
@@ -22,27 +25,27 @@
     <!-- Play Area -->
     <div class="row">
       <!-- Area Fighters -->
-      <div class="col-6 area-fighters">
-        <h2 class="my-3 pb-3 border-bottom">Characters</h2>
+      <div class="col-12 area-fighters">
+        <h2 class="my-3 pb-3 border-bottom">Fighters</h2>
         <div class="row row-fighters"></div>
       </div>
       <!-- Area Play -->
-      <div class="col-6 area-play" style="display: none">
+      <div class="col-12 area-play" style="display: none">
         <h2 class="my-3 pb-3 border-bottom">Game Time</h2>
         <div class="row row-play">
           <div class="col col-enemies hide">
             <h4 class="enemies-title">Enemies</h4>
           </div>
           <div class="col col-play hide">
-            <h4 class="title-champion">Champion</h4>
-            <div class="fighter champion"></div>
+            <h4 class="title-champion">Your Fighter</h4>
+            <div class="champion"></div>
             <h4 class="title-defender">Defender</h4>
-            <div class="fighter defender"></div>
+            <div class="defender"></div>
           </div>
         </div>
         <div class="row mt-4 row-attack hide">
           <div class="col col-attack">
-            <button class="btn btn-info attack">Fight!</button>
+            <button class="btn btn-info attack float-right">Fight!</button>
           </div>
         </div>
       </div>
