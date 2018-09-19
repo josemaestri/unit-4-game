@@ -1,7 +1,7 @@
 /* global */
 /* ************************* */
 body{
-  background: #222 url('https://images.alphacoders.com/707/707135.jpg') 0 0 no-repeat;
+  background: #222 url('https://images.alphacoders.com/707/707135.jpg') 0 0 fixed no-repeat;
   background-size: cover;
   font-family: 'Ubunto Mono',monospace;
 }
